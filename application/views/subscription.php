@@ -13,12 +13,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?base_url();?>js/subscription.js"></script>
 </head>
 <body>
-<!--
+
 <table class="table table-striped table-bordered">
     <tr>
-        <td style="width: 10%;">ID</td>    
-        <td style="width: 60%;">Название</td>
-        <td style="width: 30%;">Подписаться</td>
+        <td>ID</td>    
+        <td>Название</td>
+        <td>Подписаться</td>
     </tr>
     <?foreach($company as $item):?>
     <tr>
@@ -65,7 +65,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
             </div>
--->
+            
+
+    <h4 id="sqs"></h4>
+    <input type="search" name="query" id="searq" placeholder="Поиск">
+    <button type="submit" class="sbut">Найти</button> 
+
+            
+<? if ($company_p != "error") {?>
 <table class="table table-striped table-bordered">
 <?foreach($company_p as $item):?>
     <tr>
@@ -79,5 +86,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </tr>
 <?php endforeach;?>
 </table>
+<?}
+else {echo "
+Нет подписок
+";}?>
 </body>
 </html>

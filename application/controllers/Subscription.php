@@ -17,13 +17,7 @@ class Subscription extends CI_Controller {
         $datan['subs_t'] = $this->subscription_m->get_subs_t();
         $datan['row_subs_t'] = $this->subscription_m->row_subs_t();
         $datan['subs'] = $this->subscription_m->get_subs();
-        $com_pp = $this->subscription_m->get_company_pp($user_log);
-        $num_c = 0;
-        foreach($com_pp as $item):
-        $num_c = $num_c++;
-        $comp_p[$num_c] = $item['company'];
-        $datan['company_p'] = $this->subscription_m->get_company_p($config['per_page'],$this->uri->segment(2),$item['company']);
-		endforeach;
+        $datan['company_p'] = $this->subscription_m->get_company_p($config['per_page'],$this->uri->segment(2),$user_log);
         $this->load->view('subscription',$datan);
 	}
     public function get_subs_c()
@@ -55,5 +49,12 @@ class Subscription extends CI_Controller {
         $this->Subscription_m->del_subs($add);
         echo "del";
         } else {echo " 0 ";}};
+    }
+    public function get_search()
+    {
+        $svl = $this->input->post('svl');
+        $this->load->model('Subscription_m');
+        $dt = $this->Subscription_m->search_g($svl);
+        echo $dt;
     }
 }

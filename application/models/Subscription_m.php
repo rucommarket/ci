@@ -14,17 +14,21 @@ class Subscription_m extends CI_Model {
         $query = $this->db->get('company_info',$num,$offset);
         return $query->result_array();
     }
-    public function get_company_pp($user)
+    public function get_company_p($num,$offset,$user)
     {
         $this->db->where('user',$user);
         $query = $this->db->get('subscription');
-        return $query->result_array();
-    }
-    public function get_company_p($num,$offset,$id)
-    {
-        $this->db->where('id',$id);
+        $row_us = $query->num_rows();
+        if ($row_us != 0) {
+        $gcp = $query->result_array();
+        foreach($gcp as $item):
+        $this->db->or_where('id',$item['company']);
+        endforeach;
         $query = $this->db->get('company_info',$num,$offset);
         return $query->result_array();
+        } else {
+            return "error";
+        }
     }
     
     public function row_company()
@@ -75,5 +79,11 @@ class Subscription_m extends CI_Model {
         $this->db->where('user',$del['user']);
         $this->db->where('type',$del['type']);
         $this->db->delete('subscription');
+    }
+    public function search_s($svl) 
+    {
+        $svl = $this->db->trim($svl);
+        $svl = $this->db->mysql_real_escape_string($svl);
+        $svl = $this->db->htmlspecialchars($svl);
     }
 }

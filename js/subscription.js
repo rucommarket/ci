@@ -61,5 +61,17 @@ $(".btn-pd").click(function() {
     $('.btn-pod').attr('data-compnp',comp_id);
     che();       
 });
+$(".sbut").click(function() {
+    var html = $.ajax({
+            type: "POST",
+            url: "Subscription/get_search",
+            data: ({
+            'svl': $("#searq").val(),
+            }),
+            dataType: "json",
+            async: false
+        }).responseText;
+    $('#searq').text(html);
+});
 
 });
