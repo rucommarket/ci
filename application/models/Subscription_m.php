@@ -14,6 +14,18 @@ class Subscription_m extends CI_Model {
         $query = $this->db->get('company_info',$num,$offset);
         return $query->result_array();
     }
+    public function get_company_pp($user)
+    {
+        $this->db->where('user',$user);
+        $query = $this->db->get('subscription');
+        return $query->result_array();
+    }
+    public function get_company_p($num,$offset,$id)
+    {
+        $this->db->where('id',$id);
+        $query = $this->db->get('company_info',$num,$offset);
+        return $query->result_array();
+    }
     
     public function row_company()
     {
@@ -37,10 +49,12 @@ class Subscription_m extends CI_Model {
         $query = $this->db->get('subscription');
         return $query->result_array();
     }
-    public function row_subs()
+    public function row_subs($add)
     {
-        $this->db->where('id','1');
-        $query = $this->db->get('subscription_type');
+        $this->db->where('company',$add['company']);
+        $this->db->where('user',$add['user']);
+        $this->db->where('type',$add['type']);
+        $query = $this->db->get('subscription');
 		return $query->num_rows();
     }
       public function check_subs($id, $company, $uid)
@@ -50,5 +64,16 @@ class Subscription_m extends CI_Model {
         $this->db->where('company',$company);
         $query = $this->db->get('subscription');
         return $query->num_rows();
+    }
+    public function add_subs($add_s)
+    {
+        $this->db->insert('subscription',$add_s);
+    }
+    public function del_subs($del)
+    {
+        $this->db->where('company',$del['company']);
+        $this->db->where('user',$del['user']);
+        $this->db->where('type',$del['type']);
+        $this->db->delete('subscription');
     }
 }

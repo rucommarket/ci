@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$user_log = '1';
 ?><!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -14,7 +13,7 @@ $user_log = '1';
     <script src="<?base_url();?>js/subscription.js"></script>
 </head>
 <body>
-
+<!--
 <table class="table table-striped table-bordered">
     <tr>
         <td style="width: 10%;">ID</td>    
@@ -41,7 +40,7 @@ $user_log = '1';
                     <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
                 <div class="modal-body">
-                 <h4 class="modal-title" id="myModalLabel1"></h4>
+                 
                  <hr />
                  <?foreach($subs_t as $item_st):?>
                  <input type="hidden" id="idcom" data-user="<?=$user_log?>" />
@@ -50,10 +49,35 @@ $user_log = '1';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-cl" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary btn-pod" data-user="<?=$user_log?>">Подписаться</button>
+                    <button type="button" class="btn btn-primary btn-pod" data-user="<?=$user_log?>">Сохранить</button>
+                    
                 </div>
                 </div>
             </div>
             </div>
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                
+                <div class="modal-body">
+                 <h5 class="modal-title" id="myModalLabel1"></h5>
+                </div>
+                </div>
+            </div>
+            </div>
+-->
+<table class="table table-striped table-bordered">
+<?foreach($company_p as $item):?>
+    <tr>
+        <td><?=$item['id']?></td>    
+        <td><?=$item['companyname']?></td>
+        <td>
+            <a href="#" class="btn btn-primary btn-pd" data-toggle="modal" data-comp="<?=$item['companyname']?>" data-compid="<?=$item['id']?>">
+             Подробнее
+            </a>
+        </td>
+    </tr>
+<?php endforeach;?>
+</table>
 </body>
 </html>
